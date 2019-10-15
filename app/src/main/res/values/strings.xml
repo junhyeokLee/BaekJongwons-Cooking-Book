@@ -1,6 +1,11 @@
 <resources>
-    <string name="app_name">BaekJongwons-Cooking-Book</string>
+    <string name="app_name">paik-s-cookingsecretbook</string>
     <string name="action_recycler_view">RecyclerView</string>
     <string name="api_key">AIzaSyBkg-zZhgZBii5AlgByd3m8ypPBL455ikE</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="tistory_app_id">13299b1ff7242e77ebfe8ce5dbd9f346</string>
+    <string name="tistory_secret_key">13299b1ff7242e77ebfe8ce5dbd9f346ec26cb5650c502dd85a2c801b5b35e99aa99f52b</string>
+    <string name="tistory_token">95f97a9e3211c894f4c1d7aa770973ff_a69375d09f6782a87d3ed4ba3563eaab</string>
+
+
 </resources>
