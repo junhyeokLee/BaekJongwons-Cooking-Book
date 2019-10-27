@@ -9,11 +9,11 @@ import androidx.lifecycle.AndroidViewModel;
 import com.junhyeoklee.paik_s_cookingsecretbook.db.AppDatabase;
 import com.junhyeoklee.paik_s_cookingsecretbook.model.ModelHome;
 
-public class FavoriteMovieViewModel extends AndroidViewModel {
+public class FavoritViewModel extends AndroidViewModel {
 
     AppDatabase appDatabase;
 
-    public FavoriteMovieViewModel(@NonNull Application application) {
+    public FavoritViewModel(@NonNull Application application) {
         super(application);
         appDatabase = AppDatabase.getInstance(this.getApplication());
     }
@@ -27,15 +27,18 @@ public class FavoriteMovieViewModel extends AndroidViewModel {
         }
 
         @Override
-        protected Void doInBackground(ModelHome... movies) {
-            database.modelHomeDAO().insertmodelHomeId(movies[0]);
+        protected Void doInBackground(ModelHome... homes) {
+            database.modelHomeDAO().insertmodelHomeId(homes[0]);
             return null;
         }
     }
 
-    public void insertItem(ModelHome movie){
-        new Insert(appDatabase).execute(movie);
+    public void insertItem(ModelHome home){
+        new Insert(appDatabase).execute(home);
     }
+
+
+
 
     private static class Delete extends AsyncTask<Integer, Void, Void> {
 
@@ -55,6 +58,27 @@ public class FavoriteMovieViewModel extends AndroidViewModel {
 
     public void deleteItem(int id){
         new Delete(appDatabase).execute(id);
+    }
+
+
+
+    private static class Update extends AsyncTask<ModelHome, Void, Void> {
+
+        private AppDatabase database;
+
+        public Update(AppDatabase database) {
+            this.database = database;
+        }
+
+        @Override
+        protected Void doInBackground(ModelHome... homes) {
+            database.modelHomeDAO().updatemodelHomeId(homes[0]);
+            return null;
+        }
+    }
+
+    public void updateItem(ModelHome modelHome){
+        new Update(appDatabase).execute(modelHome);
     }
 
 }

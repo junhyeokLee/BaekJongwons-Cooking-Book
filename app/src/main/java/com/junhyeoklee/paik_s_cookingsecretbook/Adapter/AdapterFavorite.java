@@ -1,40 +1,26 @@
 package com.junhyeoklee.paik_s_cookingsecretbook.Adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.junhyeoklee.paik_s_cookingsecretbook.DetailAtivity;
-import com.junhyeoklee.paik_s_cookingsecretbook.FavoritManager;
-import com.junhyeoklee.paik_s_cookingsecretbook.Fragment.HomeFragment;
 import com.junhyeoklee.paik_s_cookingsecretbook.GlideApp;
-import com.junhyeoklee.paik_s_cookingsecretbook.MainActivity;
 import com.junhyeoklee.paik_s_cookingsecretbook.R;
 import com.junhyeoklee.paik_s_cookingsecretbook.model.ModelHome;
 import com.junhyeoklee.paik_s_cookingsecretbook.view_model.FavoritViewModel;
@@ -43,9 +29,7 @@ import com.junhyeoklee.paik_s_cookingsecretbook.view_model.HomeViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.content.Context.MODE_PRIVATE;
-
-public class AdapterHome extends RecyclerView.Adapter<AdapterHome.ViewHolder> implements Filterable {
+public class AdapterFavorite extends RecyclerView.Adapter<AdapterFavorite.ViewHolder> implements Filterable {
 
     //데이터 배열 선언
     private List<ModelHome> list;
@@ -54,14 +38,13 @@ public class AdapterHome extends RecyclerView.Adapter<AdapterHome.ViewHolder> im
     public boolean favoritHome;
     private Context context;
     private final static String homeItem = "homeItem";
-    private static AdapterHome.MyClickListener sClickListener;
+    private static AdapterFavorite.MyClickListener sClickListener;
     private int mLastPosition = -1;
     public boolean favorite = false;
 
 
-
-    public  class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imageView_img,img_fav,img_fav_empty,snsBtn;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        private ImageView imageView_img, img_fav, img_fav_empty,snsBtn;
         private CheckBox favoritBtn;
         private TextView textView_title, textView_release;
 
@@ -71,37 +54,39 @@ public class AdapterHome extends RecyclerView.Adapter<AdapterHome.ViewHolder> im
             textView_title = (TextView) itemView.findViewById(R.id.textView_title);
             textView_release = (TextView) itemView.findViewById(R.id.textView_release);
             favoritBtn = (CheckBox) itemView.findViewById(R.id.favoriteBtn);
-            img_fav = (ImageView)itemView.findViewById(R.id.img_fav);
-            img_fav_empty = (ImageView)itemView.findViewById(R.id.img_fav_empty);
+            img_fav = (ImageView) itemView.findViewById(R.id.img_fav);
+            img_fav_empty = (ImageView) itemView.findViewById(R.id.img_fav_empty);
             snsBtn = (ImageView)itemView.findViewById(R.id.snsBtn);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition();
-                    if(position != RecyclerView.NO_POSITION){
+                    if (position != RecyclerView.NO_POSITION) {
 
                         ModelHome itemPosition = list.get(position);
                         Intent intent = new Intent(context, DetailAtivity.class);
-                        intent.putExtra(homeItem,itemPosition);
+                        intent.putExtra(homeItem, itemPosition);
                         context.startActivity(intent);
 
-                        Log.e("RecyclerPosition",""+getAdapterPosition());
+                        Log.e("RecyclerPosition", "" + getAdapterPosition());
                     }
                 }
             });
 
         }
-        public Context getContext(){
+
+        public Context getContext() {
             return context;
         }
     }
 
-    public void setOnItemClickListener(AdapterHome.MyClickListener myClickListener) {
+    public void setOnItemClickListener(AdapterFavorite.MyClickListener myClickListener) {
         sClickListener = myClickListener;
     }
 
     //생성자
-    public AdapterHome(Context context, List<ModelHome> list) {
+    public AdapterFavorite(Context context, List<ModelHome> list) {
         this.list = list;
         this.context = context;
         list2 = new ArrayList<>(list);
@@ -109,11 +94,9 @@ public class AdapterHome extends RecyclerView.Adapter<AdapterHome.ViewHolder> im
     }
 
 
-
-
     @NonNull
     @Override
-    public AdapterHome.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AdapterFavorite.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_data_card, parent, false);
         ViewHolder vh = new ViewHolder(view);
 
@@ -121,17 +104,13 @@ public class AdapterHome extends RecyclerView.Adapter<AdapterHome.ViewHolder> im
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final AdapterHome.ViewHolder holder, final int position) {
-        ModelHome modelHome = (ModelHome)list.get(position);
+    public void onBindViewHolder(@NonNull final AdapterFavorite.ViewHolder holder, final int position) {
+        ModelHome modelHome = (ModelHome) list.get(position);
         int id = list.get(position).getId();
-        String title = list.get(position).getTitle();
-        String img_url = list.get(position).getImg_url();
-        String sub_title = list.get(position).getSub_title();
-        String detail_link = list.get(position).getDetail_link();
-
 
         holder.textView_title.setText(modelHome.getTitle());
-        holder.textView_release.setText(modelHome.getSub_title());;
+        holder.textView_release.setText(modelHome.getSub_title());
+
         holder.snsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -148,11 +127,10 @@ public class AdapterHome extends RecyclerView.Adapter<AdapterHome.ViewHolder> im
             }
         });
 
-
         String detailURL = list.get(position).getDetail_link();
         //다 해줬는데도 GlideApp 에러가 나면 rebuild project를 해주자.
         GlideApp.with(holder.itemView).load(list.get(position).getImg_url())
-                .override(460,520)
+                .override(460, 520)
                 .error(R.drawable.error_loading)
                 .into(holder.imageView_img);
 
@@ -162,48 +140,27 @@ public class AdapterHome extends RecyclerView.Adapter<AdapterHome.ViewHolder> im
             public void onClick(View view) {
                 FavoritViewModel favoriteMovieViewModel = ViewModelProviders.of((FragmentActivity) holder.getContext()).get(FavoritViewModel.class);
                 favoriteMovieViewModel.deleteItem(id);
+                list.remove(position);
                 Toast.makeText((FragmentActivity) holder.getContext(), "즐겨찾기 해제", Toast.LENGTH_SHORT).show();
-            }
-        });
-        holder.img_fav_empty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ModelHome home = new ModelHome(id, title, img_url, sub_title, detail_link);
-                FavoritViewModel favoriteMovieViewModel = ViewModelProviders.of((FragmentActivity) holder.getContext()).get(FavoritViewModel.class);
-                favoriteMovieViewModel.insertItem(home);
-                Toast.makeText((FragmentActivity) holder.getContext(), "즐겨찾기 추가", Toast.LENGTH_SHORT).show();
 
+                notifyDataSetChanged();
 
             }
         });
-
 
 
         HomeViewModel movieViewModel = ViewModelProviders.of((FragmentActivity) holder.getContext()).get(HomeViewModel.class);
         movieViewModel.getHome(id).observe((FragmentActivity) holder.getContext(), new Observer<List<ModelHome>>() {
             @Override
             public void onChanged(List<ModelHome> modelHomes) {
-                if (modelHomes != null && modelHomes.size() == 0) {
-                    favorite = false;
-                } else {
-                    favorite = true;
-                }
-                if (favorite) {
-                    holder.img_fav.setVisibility(View.VISIBLE);
-                    holder.img_fav_empty.setVisibility(View.GONE);
 
+                holder.img_fav.setVisibility(View.VISIBLE);
+                holder.img_fav_empty.setVisibility(View.GONE);
 
-                } else {
-                    holder.img_fav.setVisibility(View.GONE);
-                    holder.img_fav_empty.setVisibility(View.VISIBLE);
-
-                }
             }
-
         });
 
     }
-
 
 
     @Override
@@ -220,8 +177,8 @@ public class AdapterHome extends RecyclerView.Adapter<AdapterHome.ViewHolder> im
         return position;
     }
 
-    public void clear(){
-        if (list.size() > 0){
+    public void clear() {
+        if (list.size() > 0) {
             list.clear();
         }
     }
@@ -238,13 +195,13 @@ public class AdapterHome extends RecyclerView.Adapter<AdapterHome.ViewHolder> im
         protected FilterResults performFiltering(CharSequence charSequence) {
             List<ModelHome> filteredList = new ArrayList<>();
 
-            if(charSequence==null || charSequence.length() == 0){
+            if (charSequence == null || charSequence.length() == 0) {
                 filteredList.addAll(list2);
-            }else{
+            } else {
                 String filterPattern = charSequence.toString().toLowerCase().trim();
 
-                for(ModelHome modelHome : list2){
-                    if(modelHome.getTitle().toLowerCase().contains(filterPattern)){
+                for (ModelHome modelHome : list2) {
+                    if (modelHome.getTitle().toLowerCase().contains(filterPattern)) {
                         filteredList.add(modelHome);
                     }
                 }
@@ -259,13 +216,10 @@ public class AdapterHome extends RecyclerView.Adapter<AdapterHome.ViewHolder> im
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
             list.clear();
-            list.addAll((List)filterResults.values);
+            list.addAll((List) filterResults.values);
             notifyDataSetChanged();
 
         }
     };
-
-
-
 
 }

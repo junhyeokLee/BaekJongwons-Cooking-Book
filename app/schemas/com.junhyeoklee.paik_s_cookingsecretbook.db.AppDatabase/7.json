@@ -1,18 +1,18 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 2,
-    "identityHash": "cae8ebf1b7c41855694cc50ea1f3e92a",
+    "version": 7,
+    "identityHash": "6db0846ac8b6dfef2e66e39322217d19",
     "entities": [
       {
         "tableName": "cooks",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` TEXT, `img_url` TEXT, `detail_link` TEXT, `sub_title` TEXT, `favorit` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `img_url` TEXT, `detail_link` TEXT, `sub_title` TEXT, `favorit` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "title",
@@ -57,7 +57,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"cae8ebf1b7c41855694cc50ea1f3e92a\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"6db0846ac8b6dfef2e66e39322217d19\")"
     ]
   }
 }

@@ -3,14 +3,12 @@
 
     <item
         android:id="@+id/menu_home"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="Home" />
-    <item
-        android:id="@+id/menu_playlist"
         android:icon="@drawable/ic_video_library_black_24dp"
-        android:title="menu_playlist" />
+        android:title="홈" />
     <item
-        android:id="@+id/menu_search"
-        android:icon="@drawable/ic_search_black_24dp"
-        android:title="menu_search" />
+        android:id="@+id/menu_storage"
+        android:icon="@drawable/folder2"
+        android:title="보관함" />
+
+
 </menu>

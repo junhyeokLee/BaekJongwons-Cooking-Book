@@ -5,12 +5,11 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.TypeConverters;
 
 import com.junhyeoklee.paik_s_cookingsecretbook.model.ModelHome;
 
 
-@Database(entities = {ModelHome.class},version = 2)
+@Database(entities = {ModelHome.class},version = 10 )
 
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -22,7 +21,9 @@ public abstract class AppDatabase extends RoomDatabase {
         if(instance == null){
             synchronized (OBJECT){
                 if(instance == null){
-                    instance = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class,DB_Name).build();
+                    instance = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class,DB_Name)
+                            .fallbackToDestructiveMigration()
+                            .build();
                 }
             }
         }
