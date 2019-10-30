@@ -215,6 +215,7 @@ public class DetailAtivity extends AppCompatActivity {
 
 //            new DetailAtivity.Description().execute();
             webView.getSettings().setJavaScriptEnabled(true);
+            webView.setWebChromeClient(new FullscreenableChromeClient(DetailAtivity.this));
             webView.setWebViewClient(new WebViewClient(){
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {

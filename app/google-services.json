@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "467061431488",
+    "firebase_url": "https://cookingsecretbook.firebaseio.com",
+    "project_id": "cookingsecretbook",
+    "storage_bucket": "cookingsecretbook.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:467061431488:android:c362433a88b52b5478e125",
+        "android_client_info": {
+          "package_name": "com.junhyeoklee.paik_s_cookingsecretbook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "467061431488-bjv729rgcrsh3ovi9uni57crdidvopq7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.junhyeoklee.paik_s_cookingsecretbook",
+            "certificate_hash": "50b04ccdc2756dcac98970a4faf5f37af652cb15"
+          }
+        },
+        {
+          "client_id": "467061431488-m8hddequvost7ovjmk28c9b58nrceepn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMXSm2ulb4QWuSM0MiDW2KJ04Q_Veevmo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "467061431488-m8hddequvost7ovjmk28c9b58nrceepn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

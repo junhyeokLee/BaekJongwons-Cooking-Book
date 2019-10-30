@@ -7,5 +7,6 @@
     <string name="tistory_secret_key">13299b1ff7242e77ebfe8ce5dbd9f346ec26cb5650c502dd85a2c801b5b35e99aa99f52b</string>
     <string name="tistory_token">95f97a9e3211c894f4c1d7aa770973ff_a69375d09f6782a87d3ed4ba3563eaab</string>
 
-
+    <string name="default_notification_channel_id">Channel ID</string>
+    <string name="default_notification_channel_name" translatable="true">Test</string>
 </resources>

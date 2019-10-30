@@ -1,5 +1,6 @@
 package com.junhyeoklee.paik_s_cookingsecretbook;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
@@ -17,13 +18,18 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.junhyeoklee.paik_s_cookingsecretbook.Adapter.TabPagerAdapter;
 import com.junhyeoklee.paik_s_cookingsecretbook.Fragment.FavoriteFragment;
 import com.junhyeoklee.paik_s_cookingsecretbook.Fragment.HomeFragment;
@@ -45,6 +51,20 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                    if(!task.isSuccessful()){
+                        Log.w("FCM Log","getInstanceId failed",task.getException());
+                        return;
+                    }
+                    String token = task.getResult().getToken();
+                    Log.d("FCM Log","FCM 토큰:"+token);
+//                    Toast.makeText(MainActivity.this,token,Toast.LENGTH_SHORT).show();
+                    }
+                });
 
         ActionBar ab = getSupportActionBar();
         ab.setDisplayUseLogoEnabled(true);
