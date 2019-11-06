@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="start">
+
+    <PreferenceCategory
+        android:title="설정"
+        app:iconSpaceReserved="false"
+        >
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="switch"
+            android:summary="새로운 레시피가 나올때 마다 알림 메세지를 받으시겠습니까?"
+            android:title="알림설정" />
+
+
+        <Preference
+            android:key="keyword"
+            android:summary="메일 보내기"
+            android:title="문의사항">
+        </Preference>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

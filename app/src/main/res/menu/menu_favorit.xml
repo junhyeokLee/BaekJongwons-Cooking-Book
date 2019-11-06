@@ -4,7 +4,6 @@
     tools:context=".MainActivity">
     <item
         android:id="@+id/favoriteBtn"
-        android:icon="@android:drawable/btn_star_big_off"
         app:showAsAction="always"
         android:title="favorite"/>
 </menu>

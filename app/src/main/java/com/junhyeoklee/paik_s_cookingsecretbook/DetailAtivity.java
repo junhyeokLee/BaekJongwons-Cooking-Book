@@ -125,6 +125,9 @@ public class DetailAtivity extends AppCompatActivity {
         item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
+
+                Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
+                startActivity(intent);
                 return false;
             }
         });
@@ -250,7 +253,8 @@ public class DetailAtivity extends AppCompatActivity {
                             "})()");
                     webView.loadUrl("javascript:(function() { "+"document.getElementsByClassName('blogview_head')[0].style.display=\"none\"; " +
                             "})()");
-
+                    webView.loadUrl("javascript:(function() { "+"document.getElementsByClassName('viewpaging_wrap')[0].style.display=\"none\"; " +
+                            "})()");
 
                     progress.setVisibility(View.GONE);
                 }

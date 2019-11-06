@@ -35,10 +35,14 @@ import android.widget.AbsListView;
 import android.widget.Toast;
 
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.junhyeoklee.paik_s_cookingsecretbook.Adapter.AdapterHome;
 import com.junhyeoklee.paik_s_cookingsecretbook.DetailAtivity;
 import com.junhyeoklee.paik_s_cookingsecretbook.FavoritManager;
 import com.junhyeoklee.paik_s_cookingsecretbook.R;
+import com.junhyeoklee.paik_s_cookingsecretbook.SettingActivity;
 import com.junhyeoklee.paik_s_cookingsecretbook.model.ModelHome;
 import com.junhyeoklee.paik_s_cookingsecretbook.view_model.FavoritViewModel;
 import com.junhyeoklee.paik_s_cookingsecretbook.view_model.HomeViewModel;
@@ -124,6 +128,8 @@ public class HomeFragment extends Fragment {
         item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent intent = new Intent(getContext(), SettingActivity.class);
+                startActivity(intent);
                 return false;
             }
         });

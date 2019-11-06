@@ -8,12 +8,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceManager;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -24,24 +27,35 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.junhyeoklee.paik_s_cookingsecretbook.Adapter.TabPagerAdapter;
 import com.junhyeoklee.paik_s_cookingsecretbook.Fragment.FavoriteFragment;
 import com.junhyeoklee.paik_s_cookingsecretbook.Fragment.HomeFragment;
 
-
 public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
+
+    // 애드몹 광고
+   private InterstitialAd mInterstitialAd;
+   private AdView adView;
 
     private HomeFragment homeFragment = new HomeFragment();
     private FavoriteFragment favoriteFragment = new FavoriteFragment();
     private String TistoryAceessKey ;
     private BottomNavigationView menuBawah;
-
+    private SharedPreferences preferenceManager;
 
     // layout main2
     private TabLayout tabLayout;
@@ -52,23 +66,90 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                    if(!task.isSuccessful()){
-                        Log.w("FCM Log","getInstanceId failed",task.getException());
-                        return;
-                    }
-                    String token = task.getResult().getToken();
-                    Log.d("FCM Log","FCM 토큰:"+token);
-//                    Toast.makeText(MainActivity.this,token,Toast.LENGTH_SHORT).show();
-                    }
-                });
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mInterstitialAd = new InterstitialAd(getApplicationContext());
+        mInterstitialAd.setAdUnitId("ca-app-pub-1438205576140129/5031047208"); // * 자신의 전면광고 단위 아이디
+        mInterstitialAd.loadAd(adRequest);
 
+
+//        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+//            @Override
+//            public void onInitializationComplete(InitializationStatus initializationStatus) {}
+//        });
+//        mInterstitialAd = new InterstitialAd(this);
+//        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+//        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+//            MobileAds.initialize(this,
+//                    "ca-app-pub-3940256099942544~3347511713");
+//            mInterstitialAd = new InterstitialAd(this);
+//            mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+//            mInterstitialAd.loadAd(new AdRequest.Builder().build());
+//
+//            mInterstitialAd.setAdListener(new AdListener() {
+//                @Override
+//                public void onAdClosed() {
+//                    // Load the next interstitial.
+//                    mInterstitialAd.loadAd(new AdRequest.Builder().build());
+//                }
+//
+//            });
+
+//        //구글애드몹
+//        MobileAds.initialize(this,
+//                "ca-app-pub-3940256099942544~3347511713");
+//        mInterstitialAd = new InterstitialAd(this);
+//        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+//        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+//        mInterstitialAd.show();
+//        if (mInterstitialAd.isLoaded()) {
+//            mInterstitialAd.show();
+//        } else {
+//            Log.d("TAG", "The interstitial wasn't loaded yet.");
+//        }
+        //        MobileAds.initialize(this, getString(R.string.front_ad_unit_id));
+//        adView = findViewById(R.id.adView);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        adView.loadAd(adRequest);
+
+//        mInterstitialAd = new InterstitialAd(this);
+//        mInterstitialAd.setAdUnitId(getString(R.string.ad_unit_id));
+//        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+//        if(mInterstitialAd.isLoaded()){
+//            mInterstitialAd.show();
+//        }
+//        else{
+//            Log.e("Ad Error","애드몹광고 에러");
+//        }
+
+        preferenceManager = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean sync = preferenceManager.getBoolean("sync",true);
+
+        if(sync == true) {
+            FirebaseMessaging.getInstance().subscribeToTopic("send");
+        }
+        else{
+            FirebaseMessaging.getInstance().unsubscribeFromTopic("send");
+
+        }
+//            FirebaseInstanceId.getInstance().getInstanceId()
+//                    .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<InstanceIdResult> task) {
+//                            if (!task.isSuccessful()) {
+//                                Log.w("FCM Log", "getInstanceId failed", task.getException());
+//                                return;
+//                            }
+//                            String token = task.getResult().getToken();
+//                            Log.e("FCM Log", "FCM 토큰:" + token);
+////                    Toast.makeText(MainActivity.this,token,Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
         ActionBar ab = getSupportActionBar();
         ab.setDisplayUseLogoEnabled(true);
         ab.setDisplayShowHomeEnabled(true);
+        ab.setTitle("");
+        ab.setLogo(R.drawable.paiktoolbar4);
 
         ab.setElevation(0);
         // layout main2
@@ -123,6 +204,22 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         super.onResume();
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+            mInterstitialAd.setAdListener(new AdListener() {
+                @Override
+                public void onAdClosed() {
+                    // 사용자가 광고를 닫으면 뒤로가기 이벤트를 발생시킨다.
+                    finish();
+                }
+            });
+        } else {
+            super.onBackPressed();
+        }
     }
 
     private void setFragment(Fragment fragment){

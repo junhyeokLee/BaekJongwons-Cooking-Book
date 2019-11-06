@@ -1,5 +1,6 @@
 package com.junhyeoklee.paik_s_cookingsecretbook.Fragment;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,6 +28,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.junhyeoklee.paik_s_cookingsecretbook.Adapter.AdapterFavorite;
 import com.junhyeoklee.paik_s_cookingsecretbook.R;
+import com.junhyeoklee.paik_s_cookingsecretbook.SettingActivity;
 import com.junhyeoklee.paik_s_cookingsecretbook.model.ModelHome;
 import com.junhyeoklee.paik_s_cookingsecretbook.view_model.HomeViewModel;
 
@@ -122,6 +124,9 @@ public class FavoriteFragment extends Fragment {
         item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent intent = new Intent(getContext(), SettingActivity.class);
+                startActivity(intent);
+
                 return false;
             }
         });

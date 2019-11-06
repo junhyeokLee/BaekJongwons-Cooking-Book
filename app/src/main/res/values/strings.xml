@@ -3,10 +3,29 @@
     <string name="action_recycler_view">RecyclerView</string>
     <string name="api_key">AIzaSyBkg-zZhgZBii5AlgByd3m8ypPBL455ikE</string>
 
+    <string name="ad_unit_id">ca-app-pub-1438205576140129~8897661096</string>
+    <string name="front_ad_unit_id">ca-app-pub-1438205576140129/5031047208</string>
+    <string name="banner_ad_unit_id">ca-app-pub-1438205576140129/6100586296</string>
     <string name="tistory_app_id">13299b1ff7242e77ebfe8ce5dbd9f346</string>
     <string name="tistory_secret_key">13299b1ff7242e77ebfe8ce5dbd9f346ec26cb5650c502dd85a2c801b5b35e99aa99f52b</string>
     <string name="tistory_token">95f97a9e3211c894f4c1d7aa770973ff_a69375d09f6782a87d3ed4ba3563eaab</string>
 
     <string name="default_notification_channel_id">Channel ID</string>
     <string name="default_notification_channel_name" translatable="true">Test</string>
+    <string name="title_activity_setting">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
 </resources>
